@@ -1,14 +1,13 @@
 import { AppBar, Toolbar, Typography, Container, Badge, Box, Button, Drawer, IconButton, List, ListItem, ListItemText } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link, Outlet } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu'; // Menü ikonu
+import MenuIcon from '@mui/icons-material/Menu';
 import { useCart } from "./contexts/CartContext";
 import { useState } from "react";
 
 const App = () => {
     const { getTotalItems } = useCart();
-    const [openDrawer, setOpenDrawer] = useState(false); // Drawer durumunu kontrol etmek için state
-
+    const [openDrawer, setOpenDrawer] = useState(false);
     const toggleDrawer = (open: boolean) => () => {
         setOpenDrawer(open);
     };
@@ -17,13 +16,13 @@ const App = () => {
         <>
             <AppBar position="static" sx={{ borderRadius: 0 }}>
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    {/* Sol üstteki menü butonu */}
+                    {/* Mobil Hamburger Menu */}
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="menu"
                         onClick={toggleDrawer(true)}
-                        sx={{ display: { sm: 'none' } }} // Sadece mobilde göster
+                        sx={{ display: { sm: 'none' } }} // Sadece mobilde
                     >
                         <MenuIcon />
                     </IconButton>
@@ -40,7 +39,7 @@ const App = () => {
                         Jotform E-Ticaret
                     </Typography>
 
-                    {/* Desktop menüsü */}
+                    {/* Desktop Menu */}
                     <Box sx={{ display: 'flex' }}>
 
                         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>

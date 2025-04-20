@@ -53,11 +53,11 @@ const ProductsPage: React.FC = () => {
         loadProducts();
     }, []);
 
-    // filtreleme sıralama
+    // Filter Order Search
     useEffect(() => {
         let result = [...products];
 
-        // Arama
+        // Search
         if (searchTerm) {
             result = result.filter(
                 product =>
@@ -66,7 +66,7 @@ const ProductsPage: React.FC = () => {
             );
         }
 
-        // Sıralama
+        // Order
         switch (sortBy) {
             case 'price-asc':
                 result.sort((a, b) => a.price - b.price);
@@ -114,7 +114,7 @@ const ProductsPage: React.FC = () => {
 
             <Divider sx={{ mb: 3 }} />
 
-            {/* Filtre ve Sıralama */}
+            {/* Filter and Order */}
             <Grid container spacing={2} sx={{ mb: 4 }}>
                 <Grid size={{ xs: 12, md: 8 }}>
                     <TextField
@@ -143,7 +143,7 @@ const ProductsPage: React.FC = () => {
                 </Grid>
             </Grid>
 
-            {/* Ürün Listesi */}
+            {/* Product List */}
             {loading ?
                 <Container maxWidth="lg" sx={{ my: 4 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center', my: 8 }}>

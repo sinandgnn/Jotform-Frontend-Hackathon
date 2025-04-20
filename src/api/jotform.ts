@@ -112,7 +112,6 @@ const extractImageUrl = (imagesString: string): string => {
     }
 };
 
-// Ürün için doğru fiyatı hesaplayan yardımcı fonksiyon
 export const getProductPrice = (product: Product, selectedOptionIndex = 0): number => {
     if (!product.hasSpecialPricing) {
         return product.price;
