@@ -4,6 +4,7 @@ import App from "../App";
 import ProductsPage from "../pages/ProductsPage";
 import CartPage from "../pages/CartPage";
 import CheckoutPage from "../pages/CheckoutPage";
+import FavoritesPage from "../pages/FavoritesPage";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,14 @@ const router = createBrowserRouter([
             {
                 path: 'checkout',
                 element: <CheckoutPage />,
+            },
+            {
+                path: 'favorites',
+                element: <FavoritesPage />,
+            },
+            {
+                path: '*',
+                element: <div><h1>Something went wrong</h1> <p>Something went wrong.</p></div>,
             },
         ],
     },

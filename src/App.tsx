@@ -50,6 +50,9 @@ const App = () => {
                             <Button color="inherit" component={Link} to="/products">
                                 Ürünler
                             </Button>
+                            <Button color="inherit" component={Link} to="/favorites">
+                                Favoriler
+                            </Button>
                         </Box>
 
 
@@ -89,6 +92,9 @@ const App = () => {
                     </ListItem>
                     <ListItem component={Link} to="/products" onClick={toggleDrawer(false)}>
                         <ListItemText primary="Ürünler" />
+                    </ListItem>
+                    <ListItem component={Link} to="/favorites" onClick={toggleDrawer(false)}>
+                        <ListItemText primary="Favoriler" />
                     </ListItem>
                     <ListItem component={Link} to="/cart" onClick={toggleDrawer(false)}>
                         <ListItemText primary="Sepet" />

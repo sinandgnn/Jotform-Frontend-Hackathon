@@ -7,7 +7,10 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Product } from '../types';
+import { useFavorites } from '../contexts/FavoritesContext';
 
 interface ProductCardProps {
     product: Product;
@@ -23,6 +26,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
     onRemoveFromCart,
 }) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+    const favorited = isFavorite(product.id);
 
     const handleOpenModal = () => {
         setModalOpen(true);
@@ -32,15 +37,43 @@ const ProductCard: React.FC<ProductCardProps> = ({
         setModalOpen(false);
     };
 
+    const handleFavoriteToggle = () => {
+        if (favorited) {
+            removeFromFavorites(product.id);
+        } else {
+            addToFavorites(product);
+        }
+    };
+
     return (
         <>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardMedia
-                    component="img"
-                    sx={{ height: 200, objectFit: 'contain', pt: 2 }}
-                    image={product.image}
-                    alt={product.name}
-                />
+                <Box sx={{ position: 'relative' }}>
+                    <CardMedia
+                        component="img"
+                        sx={{ height: 200, objectFit: 'contain', pt: 2 }}
+                        image={product.image}
+                        alt={product.name}
+                    />
+                    <IconButton
+                        onClick={handleFavoriteToggle}
+                        sx={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                            '&:hover': {
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            }
+                        }}
+                    >
+                        {favorited ? (
+                            <FavoriteIcon color="secondary" />
+                        ) : (
+                            <FavoriteBorderIcon color="secondary" />
+                        )}
+                    </IconButton>
+                </Box>
                 <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h6" component="h2">
                         {product.name}
@@ -119,9 +152,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         <Typography variant="h5" component="h2">
                             Ürün Detayları
                         </Typography>
-                        <IconButton onClick={handleCloseModal} size="small">
-                            <CloseIcon />
-                        </IconButton>
+                        <Box>
+                            <IconButton onClick={handleFavoriteToggle} sx={{ mr: 1 }}>
+                                {favorited ? (
+                                    <FavoriteIcon color="secondary" />
+                                ) : (
+                                    <FavoriteBorderIcon color="secondary" />
+                                )}
+                            </IconButton>
+                            <IconButton onClick={handleCloseModal} size="small">
+                                <CloseIcon />
+                            </IconButton>
+                        </Box>
                     </Box>
 
                     <Divider sx={{ mb: 3 }} />
