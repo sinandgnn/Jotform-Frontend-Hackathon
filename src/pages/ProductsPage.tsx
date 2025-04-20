@@ -96,16 +96,6 @@ const ProductsPage: React.FC = () => {
         setSortBy(event.target.value);
     };
 
-    if (loading) {
-        return (
-            <Container maxWidth="lg" sx={{ my: 4 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'center', my: 8 }}>
-                    <CircularProgress />
-                </Box>
-            </Container>
-        );
-    }
-
     if (error) {
         return (
             <Container maxWidth="lg" sx={{ my: 4 }}>
@@ -154,42 +144,49 @@ const ProductsPage: React.FC = () => {
             </Grid>
 
             {/* Ürün Listesi */}
-            {filteredProducts.length === 0 ? (
-                <Typography variant="h6" sx={{ textAlign: 'center', my: 8 }}>
-                    Aramanıza uygun ürün bulunamadı.
-                </Typography>
-            ) : (
-                <>
-                    <Grid container spacing={4}>
-                        {filteredProducts
-                            .slice((page - 1) * productsPerPage, page * productsPerPage)
-                            .map((product) => (
-                                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.id}>
-                                    <ProductCard
-                                        product={product}
-                                        onAddToCart={addToCart}
-                                        onRemoveFromCart={removeFromCart}
-                                        quantity={getItemQuantity(product.id)}
-                                    />
-                                </Grid>
-                            ))}
-                    </Grid>
+            {loading ?
+                <Container maxWidth="lg" sx={{ my: 4 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', my: 8 }}>
+                        <CircularProgress />
+                    </Box>
+                </Container>
+                :
+                filteredProducts.length === 0 ? (
+                    <Typography variant="h6" sx={{ textAlign: 'center', my: 8 }}>
+                        Aramanıza uygun ürün bulunamadı.
+                    </Typography>
+                ) : (
+                    <>
+                        <Grid container spacing={4}>
+                            {filteredProducts
+                                .slice((page - 1) * productsPerPage, page * productsPerPage)
+                                .map((product) => (
+                                    <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.id}>
+                                        <ProductCard
+                                            product={product}
+                                            onAddToCart={addToCart}
+                                            onRemoveFromCart={removeFromCart}
+                                            quantity={getItemQuantity(product.id)}
+                                        />
+                                    </Grid>
+                                ))}
+                        </Grid>
 
-                    {/* Pagination */}
-                    <Stack spacing={2} sx={{ mt: 4, display: 'flex', alignItems: 'center' }}>
-                        <Pagination
-                            count={Math.ceil(filteredProducts.length / productsPerPage)}
-                            page={page}
-                            onChange={(_event, value) => setPage(value)}
-                            color="primary"
-                            size="large"
-                        />
-                        <Typography variant="body2" color="text.secondary">
-                            Toplam {filteredProducts.length} ürün bulundu
-                        </Typography>
-                    </Stack>
-                </>
-            )}
+                        {/* Pagination */}
+                        <Stack spacing={2} sx={{ mt: 4, display: 'flex', alignItems: 'center' }}>
+                            <Pagination
+                                count={Math.ceil(filteredProducts.length / productsPerPage)}
+                                page={page}
+                                onChange={(_event, value) => setPage(value)}
+                                color="primary"
+                                size="large"
+                            />
+                            <Typography variant="body2" color="text.secondary">
+                                Toplam {filteredProducts.length} ürün bulundu
+                            </Typography>
+                        </Stack>
+                    </>
+                )}
         </Container>
     );
 };

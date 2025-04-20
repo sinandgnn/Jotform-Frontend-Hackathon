@@ -46,9 +46,12 @@ const CartPage: React.FC = () => {
     if (cartItems.length === 0) {
         return (
             <Container maxWidth="lg" sx={{ my: 4 }}>
-                <Typography variant="h4" component="h1" gutterBottom>
+                <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', mb: 2 }}>
                     Sepetim
                 </Typography>
+
+                <Divider sx={{ mb: 3 }} />
+                
                 <Paper sx={{ p: 4, mt: 3, textAlign: 'center' }}>
                     <Typography variant="h6" gutterBottom>
                         Sepetiniz boş
@@ -71,11 +74,14 @@ const CartPage: React.FC = () => {
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
-            <Typography variant="h4" component="h1" >
+            <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', mb: 2 }}>
                 Sepetim
             </Typography>
-            <Typography variant='h6' gutterBottom>
-                {getTotalItems()} ürün
+
+            <Divider sx={{ mb: 3 }} />
+
+            <Typography variant='h6' gutterBottom sx={{ mb: 3 }}>
+                Toplam {getTotalItems()} ürün
             </Typography>
 
             <Grid container spacing={4}>
