@@ -5,18 +5,16 @@ export interface ProductApiResponse {
         question_id: string;
         products: ProductApiItem[];
     };
-    duration: string;
-    info: null;
-    "limit-left": number;
 }
 
 export interface ProductApiItem {
     pid: string;
     name: string;
-    description: string;
     price: string;
-    images: string; // JSON string içinde URL
-    options: string; // JSON string içinde ürün seçenekleri
+    images: string;
+    description: string;
+    options: string;
+    hasSpecialPricing: string;
     hasQuantity: string;
     showSubtotal: string;
     order: string;
@@ -27,8 +25,14 @@ export interface Product {
     id: string;
     name: string;
     price: number;
-    description: string;
     image: string;
+    description: string;
     quantity: number;
     maxQuantity: number;
+    hasSpecialPricing?: boolean;
+    rawOptions?: string;
+    optionsData?: {
+        name: string;
+        options: string[];
+    } | null;
 }
