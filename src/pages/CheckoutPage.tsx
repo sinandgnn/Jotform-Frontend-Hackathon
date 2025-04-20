@@ -14,9 +14,10 @@ import {
 } from '@mui/material';
 import { useCart } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { submitFormResponse } from '../api/jotform';
 
 const CheckoutPage: React.FC = () => {
-    const { cartItems, getTotalPrice } = useCart();
+    const { cartItems, getTotalPrice, clearCart } = useCart();
     const navigate = useNavigate();
 
     const [formData, setFormData] = React.useState({
@@ -29,11 +30,22 @@ const CheckoutPage: React.FC = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Form gönderildi:', formData);
-        alert('Ödemeniz başarıyla tamamlandı!');
-        navigate('/');
+
+        try {
+            await submitFormResponse({
+                fullName: formData.fullName,
+                address: formData.address
+            });
+
+            clearCart();
+
+            alert('Ödemeniz başarıyla tamamlandı!');
+            navigate('/');
+        } catch (error) {
+            alert('Ödeme işlemi sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+        }
     };
 
     return (
@@ -63,7 +75,6 @@ const CheckoutPage: React.FC = () => {
                                         name="fullName"
                                         value={formData.fullName}
                                         onChange={handleChange}
-                                        margin="normal"
                                     />
                                 </Grid>
                                 <Grid size={{ xs: 12 }}>
@@ -76,10 +87,20 @@ const CheckoutPage: React.FC = () => {
                                         rows={2}
                                         value={formData.address}
                                         onChange={handleChange}
-                                        margin="normal"
                                     />
                                 </Grid>
                             </Grid>
+
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                size="large"
+                                sx={{ mt: 2 }}
+                            >
+                                Ödeme Yap
+                            </Button>
                         </Box>
                     </Paper>
                 </Grid>
@@ -114,16 +135,6 @@ const CheckoutPage: React.FC = () => {
                                 {getTotalPrice().toFixed(2)} ₺
                             </Typography>
                         </Box>
-
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            size="large"
-                        >
-                            Ödeme Yap
-                        </Button>
                     </Paper>
                 </Grid>
             </Grid>

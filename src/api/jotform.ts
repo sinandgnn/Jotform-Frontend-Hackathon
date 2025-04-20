@@ -3,6 +3,7 @@ import { Product, ProductApiResponse, ProductApiItem } from "../types";
 
 const FORM_ID = '251073758789978';
 const API_KEY = 'a9298bf9a9bb28007a626bf3b7e0f635';
+const BASE_URL = 'https://api.jotform.com';
 const API_URL = `https://api.jotform.com/form/${FORM_ID}/payment-info?apiKey=${API_KEY}`;
 
 export const fetchProducts = async (): Promise<Product[]> => {
@@ -138,3 +139,45 @@ export const getProductPrice = (product: Product, selectedOptionIndex = 0): numb
 
     return product.price;
 };
+
+export async function submitFormResponse(userData: { fullName: string, address: string }) {
+    try {
+        const fields = await getFormFields();
+        const fullNameId = findFieldIdByText(fields, 'Full Name');
+        const addressId = findFieldIdByText(fields, 'Address');
+
+        const formData = new FormData();
+        formData.append(`submission[${fullNameId}]`, userData.fullName);
+        formData.append(`submission[${addressId}]`, userData.address);
+
+        const response = await fetch(`${BASE_URL}/form/${FORM_ID}/submissions?apiKey=${API_KEY}`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Form gönderimi başarısız: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Form gönderimi hatası:', error);
+        throw error;
+    }
+}
+
+
+async function getFormFields() {
+    const response = await fetch(`${BASE_URL}/form/${FORM_ID}/questions?apiKey=${API_KEY}`);
+    const data = await response.json();
+    return data.content;
+}
+
+function findFieldIdByText(fields: any, text: string): string | null {
+    for (const id in fields) {
+        if (fields[id].text === text) {
+            return id;
+        }
+    }
+    return null;
+}
