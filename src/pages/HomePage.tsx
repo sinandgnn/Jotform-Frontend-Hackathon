@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
             try {
                 setLoading(true);
                 const products = await fetchProducts();
-                setFeaturedProducts(products.slice(0, 5));
+                setFeaturedProducts(products.slice(0, 8));
                 setError(null);
             } catch (err) {
                 setError('Ürünler yüklenirken bir hata oluştu.');
