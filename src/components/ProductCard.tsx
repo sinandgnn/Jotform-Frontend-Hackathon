@@ -166,33 +166,30 @@ const ProductCard: React.FC<ProductCardProps> = ({
                                         startIcon={<AddIcon />}
                                         onClick={() => {
                                             onAddToCart(product);
-                                            handleCloseModal();
                                         }}
                                         fullWidth
                                     >
                                         Sepete Ekle
                                     </Button>
                                 ) : (
-                                    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-                                        <Button
-                                            variant="outlined"
+                                    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                                        <IconButton
                                             color="primary"
+                                            size='small'
                                             onClick={() => onRemoveFromCart(product.id)}
-                                            startIcon={<RemoveIcon />}
                                         >
-                                            Azalt
-                                        </Button>
-                                        <Typography variant="body1">
+                                            <RemoveIcon />
+                                        </IconButton>
+                                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
                                             {quantity}
                                         </Typography>
-                                        <Button
-                                            variant="outlined"
+                                        <IconButton
                                             color="primary"
+                                            size='small'
                                             onClick={() => onAddToCart(product)}
-                                            startIcon={<AddIcon />}
                                         >
-                                            Artır
-                                        </Button>
+                                            <AddIcon />
+                                        </IconButton>
                                     </Stack>
                                 )}
                             </Box>
