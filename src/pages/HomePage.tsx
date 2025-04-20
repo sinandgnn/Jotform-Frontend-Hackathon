@@ -4,6 +4,7 @@ import { fetchProducts } from '../api/jotform';
 import { Product } from '../types';
 import FeaturedProducts from '../components/FeaturedProduct';
 import { useCart } from '../contexts/CartContext';
+import FeaturedFavorites from '../components/FeaturedFavorites';
 
 const HomePage: React.FC = () => {
     const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -45,6 +46,11 @@ const HomePage: React.FC = () => {
                 error={error}
                 cartItems={cartItems}
             />
+
+            <Divider />
+
+            {/* Favori ürünler */}
+            <FeaturedFavorites />
         </Container>
     );
 };
