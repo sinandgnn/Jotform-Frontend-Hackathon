@@ -5,23 +5,22 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types';
 import ProductCard from './ProductCard';
+import { useCart } from '../contexts/CartContext';
 
 interface FeaturedProductsProps {
     products: Product[];
     loading: boolean;
+    cartItems: Product[];
     error: string | null;
-    onAddToCart: (product: Product) => void;
-    onRemoveFromCart: (productId: string) => void;
 }
 
 const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
     products,
     loading,
-    error,
-    onAddToCart,
-    onRemoveFromCart
+    error
 }) => {
     const navigate = useNavigate();
+    const { addToCart, removeFromCart, getItemQuantity } = useCart();
 
     const handleViewAllProducts = () => {
         navigate('/products');
@@ -54,8 +53,9 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
                     <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }} key={product.id}>
                         <ProductCard
                             product={product}
-                            onAddToCart={onAddToCart}
-                            onRemoveFromCart={onRemoveFromCart}
+                            onAddToCart={addToCart}
+                            onRemoveFromCart={removeFromCart}
+                            quantity={getItemQuantity(product.id)}
                         />
                     </Grid>
                 ))}

@@ -3,23 +3,25 @@ import { Container, Typography, Divider } from '@mui/material';
 import { fetchProducts } from '../api/jotform';
 import { Product } from '../types';
 import FeaturedProducts from '../components/FeaturedProduct';
+import { useCart } from '../contexts/CartContext';
 
 const HomePage: React.FC = () => {
     const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Cart Context
+    const { cartItems } = useCart();
+
     useEffect(() => {
         const loadFeaturedProducts = async () => {
             try {
                 setLoading(true);
                 const products = await fetchProducts();
-                setFeaturedProducts(products);
-//                setFeaturedProducts(products.slice(0, 5)); to show only 5
+                setFeaturedProducts(products.slice(0, 5));
                 setError(null);
             } catch (err) {
                 setError('Ürünler yüklenirken bir hata oluştu.');
-                console.error(err);
             } finally {
                 setLoading(false);
             }
@@ -27,14 +29,6 @@ const HomePage: React.FC = () => {
 
         loadFeaturedProducts();
     }, []);
-
-    const handleAddToCart = (product: Product) => {
-        console.log(`${product.name} sepete eklendi`);
-    };
-
-    const handleRemoveFromCart = (productId: string) => {
-        console.log(`${productId} sepetten silindi`);
-    };
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
@@ -49,8 +43,7 @@ const HomePage: React.FC = () => {
                 products={featuredProducts}
                 loading={loading}
                 error={error}
-                onAddToCart={handleAddToCart}
-                onRemoveFromCart={handleRemoveFromCart}
+                cartItems={cartItems}
             />
         </Container>
     );

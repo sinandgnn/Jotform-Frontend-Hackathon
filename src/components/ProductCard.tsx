@@ -11,12 +11,14 @@ import { Product } from '../types';
 
 interface ProductCardProps {
     product: Product;
+    quantity: number;
     onAddToCart: (product: Product) => void;
     onRemoveFromCart: (productId: string) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
     product,
+    quantity,
     onAddToCart,
     onRemoveFromCart,
 }) => {
@@ -63,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             Detay
                         </Button>
 
-                        {0 === 0 ? ( // quantity check
+                        {quantity === 0 ? (
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -82,8 +84,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                                     <RemoveIcon />
                                 </IconButton>
                                 <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
-                                    {/* quantity  */}
-                                    0
+                                    {quantity}
                                 </Typography>
                                 <IconButton
                                     color="primary"
@@ -158,7 +159,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             </Typography>
 
                             <Box sx={{ mt: 3 }}>
-                                {0 === 0 ? ( // quantity check
+                                {quantity === 0 ? (
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -182,8 +183,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                                             Azalt
                                         </Button>
                                         <Typography variant="body1">
-                                            {/* quantity check */}
-                                            0
+                                            {quantity}
                                         </Typography>
                                         <Button
                                             variant="outlined"
