@@ -69,5 +69,24 @@ src/
 └── main.tsx        # Application entry point
 ```
 
+## Screenshots
+
+### Home Page
+![Home Page](./screenshots/ana-sayfa.png)  
+![Home Page Favorites](./screenshots/ana-sayfa-favori.png)
+
+### Products
+![Products](./screenshots/urunler.png)
+
+### Favorites
+![Favorites](./screenshots/favori.png)
+
+### Cart
+![Cart](./screenshots/sepet.png)
+
+### Checkout
+![Checkout](./screenshots/odeme.png)
+
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
