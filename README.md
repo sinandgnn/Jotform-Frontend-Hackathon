@@ -32,7 +32,7 @@ A responsive e-commerce platform built with React, TypeScript, and Material UI f
 Clone the project
 
 ```bash
-  git clone https://github.com/sinandgnn/JotformFrontendHackathon-20.04.2025.git
+  git clone https://github.com/sinandgnn/Jotform-Frontend-Hackathon.git
 ```
 
 Go to the project directory
